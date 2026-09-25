@@ -10,6 +10,7 @@ GlucoTwin combines each patient's health record with their live wearable data. I
 | **Presentation** | [`docs/GlucoTwin_Presentation.pptx`](docs/GlucoTwin_Presentation.pptx) · [PDF](docs/GlucoTwin_Presentation.pdf) |
 | **Architecture diagram** | [`docs/Architecture_Diagram.pdf`](docs/Architecture_Diagram.pdf) |
 | **Clinician dashboard** | [`dashboard/GlucoTwin_Dashboard.html`](dashboard/GlucoTwin_Dashboard.html). Download it and open it in any browser; it works offline. |
+| **Live dashboard** | [Open the dashboard](https://anshika-si.github.io/Healthbuddy_IIT_Kanpur/Healthbuddy_IIT_Kanpur/dashboard/GlucoTwin_Dashboard.html) |
 | **License** | MIT (see [LICENSE](LICENSE)) |
 
 ---
