@@ -14,7 +14,7 @@ A Type 2 diabetes digital twin that fuses health-record and wearable data to pre
 | **Demo video** | [UNLISTED YOUTUBE LINK] |
 | **Presentation** | [PPTX](Healthbuddy_IIT_Kanpur/docs/GlucoTwin_Presentation.pptx) · [PDF](Healthbuddy_IIT_Kanpur/docs/GlucoTwin_Presentation.pdf) |
 | **Architecture diagram** | [PDF](Healthbuddy_IIT_Kanpur/docs/Architecture_Diagram.pdf) |
-| **Clinician dashboard** | [HTML file](Healthbuddy_IIT_Kanpur/dashboard/GlucoTwin_Dashboard.html) |
+| **Live dashboard** | [Open the dashboard](https://anshika-si.github.io/Healthbuddy_IIT_Kanpur/Healthbuddy_IIT_Kanpur/dashboard/GlucoTwin_Dashboard.html) |
 | **Source code** | [Healthbuddy_IIT_Kanpur/src](Healthbuddy_IIT_Kanpur/src) |
 | **License** | MIT ([LICENSE](Healthbuddy_IIT_Kanpur/LICENSE)) |
 
