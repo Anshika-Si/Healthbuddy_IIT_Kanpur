@@ -231,7 +231,7 @@ Healthbuddy_IIT_Kanpur/
 ## 9. How to run
 
 ```bash
-git clone [REPO URL] && cd Healthbuddy_IIT_Kanpur
+git clone https://github.com/Anshika-Si/Healthbuddy_IIT_Kanpur && cd Healthbuddy_IIT_Kanpur/Healthbuddy_IIT_Kanpur
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
