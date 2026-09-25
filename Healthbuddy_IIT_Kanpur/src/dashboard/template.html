@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GlucoTwin · Clinician Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6F6; --panel:#FFFFFF; --ink:#12343B; --ink2:#46636A; --muted:#7D9296; --line:#DCE5E6;
+  --teal:#0F7C7A; --teal-soft:#D8EEEC; --coral:#E4572E; --coral-soft:#FBE3DA; --sand:#C9971B; --sand-soft:#F8EDCF;
+  --band:#E6F2F0; --focus:#1B6FD1;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1B1E; --panel:#15272B; --ink:#E4EEEF; --ink2:#AFC3C6; --muted:#7F989C; --line:#274045;
+  --teal:#4DB8B0; --teal-soft:#1A3B3C; --coral:#FF7A55; --coral-soft:#3F2520; --sand:#E7BC4C; --sand-soft:#3A3120; --band:#173033;
+}}
+:root[data-theme="dark"]{
+  --bg:#0E1B1E; --panel:#15272B; --ink:#E4EEEF; --ink2:#AFC3C6; --muted:#7F989C; --line:#274045;
+  --teal:#4DB8B0; --teal-soft:#1A3B3C; --coral:#FF7A55; --coral-soft:#3F2520; --sand:#E7BC4C; --sand-soft:#3A3120; --band:#173033;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+aside{background:var(--panel);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px 16px}
+.brand svg{flex:none}
+.brand b{font-size:18px;letter-spacing:.2px}
+.brand small{display:block;color:var(--muted);font-size:12px}
+.clock{padding:12px 8px 16px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.clock label{display:block;font-size:13px;color:var(--ink2);margin-bottom:4px}
+.clock .t{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.clock input{width:100%;accent-color:var(--teal)}
+.clock .hint{overflow-wrap:anywhere}
+.clock .hint{font-size:12px;color:var(--muted)}
+.plist h3{font-size:13px;color:var(--ink2);margin:6px 8px;font-weight:400}
+.pbtn{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:10px 8px;border-radius:10px;cursor:pointer}
+.pbtn:hover{background:var(--bg)}
+.pbtn[aria-current="true"]{background:var(--teal-soft)}
+.pbtn .dot{width:10px;height:10px;border-radius:50%}
+.pbtn .nm{font-size:14px}
+.pbtn .sub{display:block;font-size:12px;color:var(--muted)}
+.pbtn .pct{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
+main{padding:22px 26px 40px;max-width:1320px}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;margin-bottom:16px}
+.head h1{margin:0;font-size:26px}
+.head .meta{color:var(--ink2);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;background:var(--panel)}
+.chip.warn{border-color:transparent;background:var(--sand-soft)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.panel h2{font-size:16px;margin:0 0 2px}
+.panel .cap{color:var(--muted);font-size:13px;margin:0 0 10px}
+.chartwrap{overflow-x:auto}
+svg text{font-family:inherit}
+.status{border-radius:14px;padding:18px;margin-bottom:18px}
+.status.alert{background:var(--coral-soft)}
+.status.watch{background:var(--sand-soft)}
+.status.ok{background:var(--teal-soft)}
+.status.high{background:var(--coral-soft)}
+.status .lbl{font-size:14px;color:var(--ink2)}
+.status .big{font-size:52px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;margin:6px 0}
+.status .msg{font-size:15px}
+.status .rng{margin-top:10px;font-size:14px;color:var(--ink2)}
+.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--panel);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:14px}
+.btn.sec{background:transparent;color:var(--ink)}
+.drv{list-style:none;padding:0;margin:0}
+.drv li{display:grid;grid-template-columns:1fr 90px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+.drv li:first-child{border-top:0}
+.drv .v{color:var(--muted);font-size:12px;display:block}
+.bar{height:8px;border-radius:4px;background:var(--line);position:relative}
+.bar i{position:absolute;top:0;height:8px;border-radius:4px}
+.whatif .row{margin:10px 0}
+.whatif label{display:flex;justify-content:space-between;font-size:14px}
+.whatif label b{font-variant-numeric:tabular-nums}
+.whatif input[type=range]{width:100%;accent-color:var(--teal)}
+.wres{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.wres div{background:var(--bg);border-radius:10px;padding:8px 10px}
+.wres small{display:block;color:var(--muted);font-size:12px}
+.wres b{font-size:22px;font-variant-numeric:tabular-nums}
+.lower{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 4px;border-top:1px solid var(--line)}
+th{color:var(--muted);font-weight:400;border-top:0}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px}
+.kv span:nth-child(odd){color:var(--ink2)}
+.twinline{font-size:14px;margin:6px 0;padding-left:10px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink2);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);cursor:pointer}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.foot{color:var(--muted);font-size:12px;margin-top:22px}
+@media (max-width:1100px){.grid{grid-template-columns:minmax(0,1fr)}.lower{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.app{grid-template-columns:minmax(0,1fr)}aside{position:static;height:auto}main{padding:16px}.head h1{font-size:22px}.status .big{font-size:44px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="12" cy="17" r="9" fill="none" stroke="var(--teal)" stroke-width="2.5"/><circle cx="22" cy="17" r="9" fill="none" stroke="var(--coral)" stroke-width="2.5"/></svg>
+      <div><b>GlucoTwin</b><small>Type 2 diabetes digital twin</small></div>
+    </div>
+    <div class="clock">
+      <label for="clock">Replay the day · clinic time</label>
+      <div class="t" id="clockT">--:--</div>
+      <input id="clock" type="range" min="0" max="95" step="1" value="52" aria-describedby="clockHint">
+      <div class="hint" id="clockHint">Drag to move through the day. Every panel updates as if it were live.</div>
+    </div>
+    <nav class="plist" aria-label="Patients">
+      <h3>Patients, highest risk first</h3>
+      <div id="plist"></div>
+    </nav>
+  </aside>
+  <main>
+    <div class="head">
+      <div><h1 id="pname"></h1><div class="meta" id="pmeta"></div></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="grid">
+      <div>
+        <section class="panel">
+          <h2>Glucose today and the twin's 2-hour forecast</h2>
+          <p class="cap">Shaded band is the 70–180 mg/dL target range. Right of "now" is the digital twin's simulated path, with the model's 80% range for the 2-hour peak.</p>
+          <div class="chartwrap" id="mainChart"></div>
+          <div class="legend">
+            <span><i style="background:var(--ink)"></i>CGM so far</span>
+            <span><i style="background:var(--teal)"></i>Twin forecast</span>
+            <span><i style="background:var(--coral)"></i>Peak 80% range</span>
+            <span>▲ logged meal (g carbs)</span>
+            <label class="toggle"><input type="checkbox" id="reveal"> Show what actually happened</label>
+          </div>
+        </section>
+        <section class="panel" style="margin-top:18px">
+          <h2>Wearable signals</h2>
+          <p class="cap">Steps, heart rate and HRV from the watch; last night's sleep stages.</p>
+          <div class="chartwrap" id="strip"></div>
+          <div class="chartwrap" id="hypno" style="margin-top:8px"></div>
+        </section>
+      </div>
+      <div>
+        <section class="status" id="status" aria-live="polite"></section>
+        <section class="panel">
+          <h2>Why this prediction</h2>
+          <p class="cap">Largest contributors right now. Coral pushes risk up, teal pulls it down.</p>
+          <ul class="drv" id="drivers"></ul>
+        </section>
+        <section class="panel whatif" style="margin-top:18px">
+          <h2>Ask the twin: what if?</h2>
+          <p class="cap">Simulate this patient's personalised response before advising them. Unlike the risk score above, this assumes the meal definitely happens.</p>
+          <div class="row"><label for="wCarb">Next meal carbohydrate <b id="wCarbV"></b></label><input type="range" id="wCarb" min="0" max="150" step="5"></div>
+          <div class="row"><label for="wIn">Meal starts in <b id="wInV"></b></label><input type="range" id="wIn" min="0" max="90" step="5"></div>
+          <div class="row"><label for="wWalk">Walk after the meal <b id="wWalkV"></b></label><input type="range" id="wWalk" min="0" max="30" step="5"></div>
+          <div class="row"><label for="wSleep">Last night's sleep <b id="wSleepV"></b></label><input type="range" id="wSleep" min="4" max="9" step="0.5"></div>
+          <div class="wres"><div><small>Meal as usual, 2-h peak</small><b id="wBase"></b></div><div><small>With these changes</small><b id="wNew"></b></div></div>
+          <div class="chartwrap" id="wChart" style="margin-top:8px"></div>
+        </section>
+      </div>
+    </div>
+    <div class="lower">
+      <section class="panel"><h2>Digital twin, in plain words</h2><p class="cap">Calibrated from this patient's own onboarding week.</p><div id="twinTxt"></div></section>
+      <section class="panel"><h2>Last 7 days</h2><p class="cap">Daily summary from CGM and watch.</p><div id="week"></div></section>
+      <section class="panel"><h2>Clinical record</h2><p class="cap">Static EHR stream (synthetic).</p><div class="kv" id="ehr"></div></section>
+    </div>
+    <p class="foot" id="foot"></p>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const DATA = /*__DATA__*/null;
+const $ = id => document.getElementById(id);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const hhmm = m => String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+let cur = 0;
+
+function riskState(pt){
+  if(pt.above) return {cls:"high", word:"Above target now", color:css("--coral")};
+  if(pt.p >= Math.max(DATA.threshold, 0.5)) return {cls:"alert", word:"Spike likely", color:css("--coral")};
+  if(pt.p >= DATA.threshold) return {cls:"watch", word:"Watch", color:css("--sand")};
+  return {cls:"ok", word:"Low risk", color:css("--teal")};
+}
+const idx = () => +$("clock").value;
+const ptAt = (P,i) => P.points[Math.min(i, P.points.length-1)];
+
+/* ---------- Twin simulator (JS port of src/twin/glucotwin.py) ---------- */
+function shape(tau,tpk){ tau=Math.max(tau,0); return (tau/tpk)*Math.exp(1-tau/tpk); }
+function simulate(tw,gnow,recent,H,sleepH,extra,walk){
+  const sm = 1 + tw.beta_sleep*Math.max(0,7-sleepH), wm = 1 - tw.walk_effect*Math.min(walk,30)/30;
+  const meals = recent.slice(); if(extra) meals.push([-extra[0], extra[1]]);
+  const comp=(t,useW)=>meals.reduce((s,[ago,c])=>s+tw.cs*c*sm*((useW&&ago<=30)?wm:1)*shape(t+ago,tw.tpk),0);
+  const resid = gnow - tw.gb - comp(0,false); const out=[];
+  for(let t=0;t<=H;t+=5) out.push(tw.gb + resid*Math.exp(-tw.k*t) + comp(t,true));
+  return out;
+}
+
+/* ---------- SVG helpers ---------- */
+function svg(w,h,inner,label,minW){return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="min-width:${minW??Math.min(w,520)}px;display:block" role="img" aria-label="${label}">${inner}</svg>`;}
+function path(pts){return pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join("");}
+
+function drawMain(P){
+  const W=760,H=300,L=40,R=12,T=14,B=30, now=ptAt(P,idx()).m;
+  const x=m=>L+(m/1440)*(W-L-R), ymax=Math.max(300,...P.series.glucose)+10, y=g=>T+(1-(g-40)/(ymax-40))*(H-T-B);
+  let s=`<rect x="${L}" y="${y(180)}" width="${W-L-R}" height="${y(70)-y(180)}" fill="${css("--band")}"/>`;
+  for(const g of [70,180,250]) s+=`<line x1="${L}" x2="${W-R}" y1="${y(g)}" y2="${y(g)}" stroke="${css("--line")}"/><text x="${L-6}" y="${y(g)+4}" font-size="11" text-anchor="end" fill="${css("--muted")}">${g}</text>`;
+  for(let h=0;h<=24;h+=3) s+=`<text x="${x(h*60)}" y="${H-12}" font-size="11" text-anchor="middle" fill="${css("--muted")}">${String(h%24).padStart(2,"0")}:00</text>`;
+  const G=P.series.glucose, past=[], fut=[];
+  G.forEach((g,i)=>{const m=i*5; (m<=now?past:fut).push([x(m),y(g)]);});
+  if($("reveal").checked && fut.length) s+=`<path d="${path([past[past.length-1],...fut])}" fill="none" stroke="${css("--muted")}" stroke-width="1.6" stroke-dasharray="3 3"/>`;
+  s+=`<path d="${path(past)}" fill="none" stroke="${css("--ink")}" stroke-width="2.2"/>`;
+  const pt=ptAt(P,idx());
+  const tw=pt.twin.map((g,i)=>[x(now+i*15),y(g)]).filter(p=>p[0]<=W-R);
+  s+=`<path d="${path(tw)}" fill="none" stroke="${css("--teal")}" stroke-width="2.6"/>`;
+  const pkI=pt.twin.indexOf(Math.max(...pt.twin)), px=Math.min(x(now+Math.max(pkI,1)*15),W-R-4);
+  s+=`<line x1="${px}" x2="${px}" y1="${y(pt.q90)}" y2="${y(pt.q10)}" stroke="${css("--coral")}" stroke-width="6" stroke-linecap="round" opacity=".85"/>`;
+  s+=`<text x="${px+8}" y="${y(pt.q90)+4}" font-size="11" fill="${css("--coral")}">${pt.q10}–${pt.q90}</text>`;
+  s+=`<line x1="${x(now)}" x2="${x(now)}" y1="${T}" y2="${H-B}" stroke="${css("--ink2")}" stroke-dasharray="4 3"/><text x="${x(now)+4}" y="${T+10}" font-size="11" fill="${css("--ink2")}">now ${hhmm(now)}</text>`;
+  for(const [m,c] of P.series.meals){ if(m<=now || $("reveal").checked) s+=`<text x="${x(m)}" y="${H-B-4}" font-size="11" text-anchor="middle" fill="${css("--sand")}">▲${c}</text>`; }
+  $("mainChart").innerHTML=svg(W,H,s,"Glucose today with twin forecast");
+}
+
+function drawStrip(P){
+  const W=760,H=150,L=44,R=12, now=ptAt(P,idx()).m, x=m=>L+(m/1440)*(W-L-R);
+  let s="";
+  const row=(arr,top,h,col,label,max,bars)=>{
+    s+=`<text x="${L-6}" y="${top+h/2+4}" font-size="11" text-anchor="end" fill="${css("--muted")}">${label}</text>`;
+    const pts=[]; arr.forEach((v,i)=>{const m=i*5; if(m>now) return; const yy=top+h-(Math.min(v,max)/max)*h;
+      if(bars){ if(v>0) s+=`<rect x="${x(m)}" y="${yy}" width="2.4" height="${top+h-yy}" fill="${col}"/>`; } else pts.push([x(m),yy]); });
+    if(!bars && pts.length) s+=`<path d="${path(pts)}" fill="none" stroke="${col}" stroke-width="1.3"/>`;
+    s+=`<line x1="${L}" x2="${W-R}" y1="${top+h}" y2="${top+h}" stroke="${css("--line")}"/>`;
+  };
+  row(P.series.steps,6,36,css("--teal"),"Steps",600,true);
+  row(P.series.hr,54,36,css("--coral"),"HR",120,false);
+  row(P.series.hrv,102,36,css("--ink2"),"HRV",90,false);
+  $("strip").innerHTML=svg(W,H,s,"Steps, heart rate and HRV today");
+  // hypnogram
+  const st=P.sleep.stages, W2=760,H2=96, n=st.length, xx=i=>L+(i/n)*(W2-L-R);
+  const lv={0:0,3:1,1:2,2:3}, yy=v=>10+lv[v]*18; let h="";
+  ["Awake","REM","Light","Deep"].forEach((t,i)=>h+=`<text x="${L-6}" y="${14+i*18}" font-size="11" text-anchor="end" fill="${css("--muted")}">${t}</text>`);
+  const pts=[]; st.forEach((v,i)=>{pts.push([xx(i),yy(v)]);pts.push([xx(i+1),yy(v)]);});
+  h+=`<path d="${path(pts)}" fill="none" stroke="${css("--teal")}" stroke-width="1.6"/>`;
+  [18,21,0,3,6,9,12].forEach((hr,i)=>{const k=((hr-18+24)%24)*12; h+=`<text x="${xx(k)}" y="${H2-4}" font-size="11" text-anchor="middle" fill="${css("--muted")}">${String(hr).padStart(2,"0")}:00</text>`;});
+  $("hypno").innerHTML=svg(W2,H2,h,"Last night's sleep stages")+`<div class="cap" style="margin:0">Last night: <b>${P.sleep.hours} h</b> asleep</div>`;
+}
+
+function drawStatus(P){
+  const pt=ptAt(P,idx()), st=riskState(pt), g=P.series.glucose[Math.floor(pt.m/5)];
+  const msg = st.cls==="high" ? "Glucose is already above 180 mg/dL. Twin shows the expected return path."
+    : st.cls==="alert" ? "The twin expects glucose to cross 180 mg/dL within 2 hours. Consider a nudge now."
+    : st.cls==="watch" ? "Rising risk. Worth a light-touch reminder." : "No action needed.";
+  $("status").className="status "+st.cls;
+  $("status").innerHTML=`<div class="lbl">${st.word} · current CGM ${g} mg/dL</div>
+    <div class="big">${Math.round(pt.p*100)}%</div>
+    <div class="msg">chance of exceeding 180 mg/dL in the next 2 hours. ${msg}</div>
+    <div class="rng">Forecast 2-h peak: <b>${pt.q50} mg/dL</b> (80% range ${pt.q10}–${pt.q90})</div>
+    <div class="actions"><button class="btn" data-act="Nudge sent to patient's phone: “A 15-minute walk after your next meal is likely to keep you in range.”">Send walk nudge</button>
+    <button class="btn sec" data-act="Alert acknowledged and logged to the patient record.">Acknowledge</button></div>`;
+  $("status").querySelectorAll("button").forEach(b=>b.onclick=()=>toast(b.dataset.act));
+}
+
+function drawDrivers(P){
+  const pt=ptAt(P,idx()), mx=Math.max(...pt.drivers.map(d=>Math.abs(d.impact)),0.01);
+  $("drivers").innerHTML=pt.drivers.map(d=>{const w=Math.abs(d.impact)/mx*50, up=d.impact>0;
+    return `<li><div>${d.name}${d.value?`<span class="v">${d.value}</span>`:""}</div>
+    <div class="bar" aria-label="${up?"raises":"lowers"} risk"><i style="left:${up?50:50-w}%;width:${w}%;background:${up?css("--coral"):css("--teal")}"></i></div></li>`;}).join("");
+}
+
+function whatIfDefaults(P){
+  const pt=ptAt(P,idx()), h=Math.floor(pt.m/60), tw=P.twin;
+  let best=0,bh=h; for(let k=0;k<2;k++){const hh=(h+k)%24; if(tw.meal_hist[hh]>best){best=tw.meal_hist[hh];bh=hh;}}
+  $("wCarb").value = best>0.3 ? Math.round((tw.meal_carbs_hist[bh]||60)/5)*5 : 0;
+  $("wIn").value = Math.min(90,Math.max(0,Math.round((bh*60-pt.m+30)/5)*5));
+  $("wWalk").value = 0; $("wSleep").value = Math.round(P.sleep.hours*2)/2 || 7;
+}
+function drawWhatIf(P){
+  const pt=ptAt(P,idx()), tw=P.twin, g=P.series.glucose[Math.floor(pt.m/5)];
+  const recent=P.series.meals.filter(([m])=>m<=pt.m && m>pt.m-240).map(([m,c])=>[pt.m-m,c]);
+  const carbs=+$("wCarb").value, inM=+$("wIn").value, walk=+$("wWalk").value, sl=+$("wSleep").value;
+  $("wCarbV").textContent=carbs+" g"; $("wInV").textContent=inM+" min"; $("wWalkV").textContent=walk?walk+" min":"none"; $("wSleepV").textContent=sl+" h";
+  const base=simulate(tw,g,recent,120,P.sleep.hours||7,carbs?[inM,carbs]:null,0);
+  const alt=simulate(tw,g,recent,120,sl,carbs?[inM,carbs]:null,walk);
+  const bp=Math.round(Math.max(...base)), ap=Math.round(Math.max(...alt));
+  $("wBase").textContent=bp+" mg/dL"; $("wNew").textContent=ap+" mg/dL";
+  $("wNew").style.color = ap>DATA.spike?css("--coral"):css("--teal");
+  const W=320,H=130,L=30,R=16,T=6,B=18, mx=Math.max(220,...base,...alt)+5, x=i=>L+i/(base.length-1)*(W-L-R), y=v=>T+(1-(v-60)/(mx-60))*(H-T-B);
+  let s=`<rect x="${L}" y="${y(180)}" width="${W-L-R}" height="${y(70)-y(180)}" fill="${css("--band")}"/>`;
+  s+=`<text x="${L-4}" y="${y(180)+4}" font-size="10" text-anchor="end" fill="${css("--muted")}">180</text>`;
+  s+=`<path d="${path(base.map((v,i)=>[x(i),y(v)]))}" fill="none" stroke="${css("--muted")}" stroke-width="1.6" stroke-dasharray="4 3"/>`;
+  s+=`<path d="${path(alt.map((v,i)=>[x(i),y(v)]))}" fill="none" stroke="${css("--teal")}" stroke-width="2.4"/>`;
+  [0,60,120].forEach(m=>s+=`<text x="${x(m/5)}" y="${H-4}" font-size="10" text-anchor="middle" fill="${css("--muted")}">+${m}m</text>`);
+  $("wChart").innerHTML=svg(W,H,s,"What-if simulation",0);
+}
+
+function drawStatic(P){
+  const e=P.ehr, tw=P.twin;
+  $("pname").textContent=P.name; $("pmeta").textContent=`${P.id} · ${P.city} · ${P.date} · T2D for ${e.years_since_diagnosis} years`;
+  const meds=[e.med_metformin&&"Metformin",e.med_sulfonylurea&&"Sulfonylurea",e.med_dpp4&&"DPP-4i",e.med_insulin&&"Insulin"].filter(Boolean);
+  $("chips").innerHTML=[`HbA1c ${e.hba1c_pct}%`,`BMI ${e.bmi}`,...meds,e.hypertension?"Hypertension":null,e.tcf7l2_risk_alleles?`TCF7L2 ×${e.tcf7l2_risk_alleles}`:null]
+    .filter(Boolean).map((c,i)=>`<span class="chip${(i===0&&e.hba1c_pct>=8)?" warn":""}">${c}</span>`).join("");
+  $("twinTxt").innerHTML=`
+   <p class="twinline">Glucose settles around <b>${Math.round(tw.gb)} mg/dL</b> overnight.</p>
+   <p class="twinline">Each gram of carbohydrate raises the peak by about <b>${tw.cs.toFixed(1)} mg/dL</b>, so a 60 g meal adds roughly ${Math.round(tw.cs*60)}.</p>
+   <p class="twinline">Meal peaks arrive about <b>${Math.round(tw.tpk)} minutes</b> after eating.</p>
+   <p class="twinline">Each hour of sleep under 7 h makes meal responses <b>${Math.round(tw.beta_sleep*100)}%</b> larger.</p>
+   <p class="twinline">A 30-minute walk after eating cuts the meal peak by about <b>${Math.round(tw.walk_effect*100)}%</b>.</p>`;
+  $("week").innerHTML=`<table><thead><tr><th>Day</th><th>Mean</th><th>In range</th><th>Sleep</th><th>Steps</th></tr></thead><tbody>${
+    P.week.map((w,i)=>`<tr><td>${i===6?"Today":"−"+(6-i)+"d"}</td><td>${w.mean}</td><td>${w.tir}%</td><td>${w.sleep} h</td><td>${w.steps.toLocaleString("en-IN")}</td></tr>`).join("")}</tbody></table>`;
+  const kv=[["Age / sex",`${e.age} / ${e.sex}`],["Waist",`${e.waist_cm} cm`],["Fasting glucose",`${e.fasting_glucose_mgdl} mg/dL`],["LDL",`${e.ldl_mgdl} mg/dL`],
+    ["Triglycerides",`${e.triglycerides_mgdl} mg/dL`],["eGFR",`${e.egfr}`],["Systolic BP",`${e.systolic_bp} mmHg`],["Family history",e.family_history_t2d?"Yes":"No"],
+    ["Diet pattern",e.diet_pattern.replace("_"," ")]];
+  $("ehr").innerHTML=kv.map(([k,v])=>`<span>${k}</span><span>${v}</span>`).join("");
+}
+
+function drawList(){
+  const i=idx(); const order=DATA.patients.map((P,k)=>({P,k,pt:ptAt(P,i)})).sort((a,b)=>(b.pt.above-a.pt.above)||(b.pt.p-a.pt.p));
+  $("plist").innerHTML=order.map(({P,k,pt})=>{const st=riskState(pt);
+    return `<button class="pbtn" data-k="${k}" aria-current="${k===cur}"><span class="dot" style="background:${st.color}"></span>
+    <span><span class="nm">${P.name}</span><span class="sub">${st.word}</span></span><span class="pct">${pt.above?"↑":Math.round(pt.p*100)+"%"}</span></button>`;}).join("");
+  $("plist").querySelectorAll(".pbtn").forEach(b=>b.onclick=()=>{cur=+b.dataset.k; whatIfDefaults(DATA.patients[cur]); render(true);});
+}
+
+function render(full){
+  const P=DATA.patients[cur]; $("clockT").textContent=hhmm(ptAt(P,idx()).m);
+  if(full) drawStatic(P);
+  drawList(); drawMain(P); drawStrip(P); drawStatus(P); drawDrivers(P); drawWhatIf(P);
+}
+function toast(t){const el=$("toast"); el.textContent=t; el.classList.add("on"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("on"),2600);}
+
+$("clock").max=DATA.patients[0].points.length-1;
+$("clock").addEventListener("input",()=>{whatIfDefaults(DATA.patients[cur]); render(false);});
+$("reveal").addEventListener("change",()=>drawMain(DATA.patients[cur]));
+["wCarb","wIn","wWalk","wSleep"].forEach(id=>$(id).addEventListener("input",()=>drawWhatIf(DATA.patients[cur])));
+$("foot").textContent=`Model on unseen test patients: AUROC ${DATA.model.auroc}, ${DATA.model.detect}% of spikes flagged, median lead time ${DATA.model.lead} min. All data synthetic. Research prototype, not a medical device.`;
+// open on the patient with the highest risk at the default time
+cur = DATA.patients.map((P,k)=>[ptAt(P,idx()).p,k]).sort((a,b)=>b[0]-a[0])[0][1];
+whatIfDefaults(DATA.patients[cur]); render(true);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>render(true));
+</script>
+</body>
+</html>

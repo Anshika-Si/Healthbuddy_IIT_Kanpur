@@ -1,0 +1,11 @@
+{
+  "r_carb_sensitivity_vs_true_si": -0.8681846512334359,
+  "r_basal_vs_fasting_glucose": 0.812181687531948,
+  "whatif_patient": "P0045",
+  "whatif_peaks": {
+    "Usual: 85 g rice dinner, slept 7 h": 212.39093862815173,
+    "After a 4.5 h night": 286.1528464801321,
+    "15-min walk after dinner": 195.6107382851926,
+    "Smaller portion (55 g) + 15-min walk": 165.7481247727717
+  }
+}

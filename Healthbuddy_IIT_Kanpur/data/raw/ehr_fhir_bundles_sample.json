@@ -1,0 +1,712 @@
+[
+ {
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+   {
+    "resourceType": "Patient",
+    "id": "P0000",
+    "gender": "M",
+    "extension": [
+     {
+      "url": "age",
+      "valueInteger": 38
+     }
+    ]
+   },
+   {
+    "resourceType": "Condition",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Type 2 diabetes mellitus"
+      }
+     ]
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 7.2,
+     "unit": "%"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1558-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 116.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 29.4,
+     "unit": "kg/m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "18262-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 89.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2571-8"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 221.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 93.0,
+     "unit": "mL/min/1.73m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0000",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 126.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  ]
+ },
+ {
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+   {
+    "resourceType": "Patient",
+    "id": "P0001",
+    "gender": "F",
+    "extension": [
+     {
+      "url": "age",
+      "valueInteger": 45
+     }
+    ]
+   },
+   {
+    "resourceType": "Condition",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Type 2 diabetes mellitus"
+      }
+     ]
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 7.4,
+     "unit": "%"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1558-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 130.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 25.2,
+     "unit": "kg/m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "18262-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 93.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2571-8"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 205.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 98.0,
+     "unit": "mL/min/1.73m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0001",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 135.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  ]
+ },
+ {
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+   {
+    "resourceType": "Patient",
+    "id": "P0002",
+    "gender": "F",
+    "extension": [
+     {
+      "url": "age",
+      "valueInteger": 59
+     }
+    ]
+   },
+   {
+    "resourceType": "Condition",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Type 2 diabetes mellitus"
+      }
+     ]
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 7.8,
+     "unit": "%"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1558-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 133.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 27.3,
+     "unit": "kg/m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "18262-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 68.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2571-8"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 157.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 83.0,
+     "unit": "mL/min/1.73m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0002",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 135.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  ]
+ },
+ {
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+   {
+    "resourceType": "Patient",
+    "id": "P0003",
+    "gender": "M",
+    "extension": [
+     {
+      "url": "age",
+      "valueInteger": 44
+     }
+    ]
+   },
+   {
+    "resourceType": "Condition",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Type 2 diabetes mellitus"
+      }
+     ]
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 7.2,
+     "unit": "%"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1558-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 122.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 29.8,
+     "unit": "kg/m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "18262-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 98.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2571-8"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 155.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 85.0,
+     "unit": "mL/min/1.73m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0003",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 114.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  ]
+ },
+ {
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+   {
+    "resourceType": "Patient",
+    "id": "P0004",
+    "gender": "F",
+    "extension": [
+     {
+      "url": "age",
+      "valueInteger": 54
+     }
+    ]
+   },
+   {
+    "resourceType": "Condition",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "44054006",
+       "display": "Type 2 diabetes mellitus"
+      }
+     ]
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "4548-4"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 7.1,
+     "unit": "%"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1558-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 137.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "39156-5"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 29.0,
+     "unit": "kg/m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "18262-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 140.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2571-8"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 128.0,
+     "unit": "mg/dL"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "33914-3"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 81.0,
+     "unit": "mL/min/1.73m2"
+    }
+   },
+   {
+    "resourceType": "Observation",
+    "subject": "P0004",
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8480-6"
+      }
+     ]
+    },
+    "valueQuantity": {
+     "value": 129.0,
+     "unit": "mm[Hg]"
+    }
+   }
+  ]
+ }
+]

@@ -1,0 +1,138 @@
+{
+  "split": {
+    "train_patients": 74,
+    "val_patients": 15,
+    "test_patients": 29,
+    "train_points": 34008,
+    "test_points": 15518,
+    "spike_prevalence_test": 0.17676246939038537
+  },
+  "ablation_test": {
+    "Trend-arrow rule (baseline)": {
+      "auroc": 0.6686499918311903,
+      "auprc": 0.3726989630531756
+    },
+    "CGM only": {
+      "auroc": 0.9165133950643266,
+      "auprc": 0.7272123511048679,
+      "brier": 0.08528720334031614,
+      "sensitivity": 0.8454247174626321,
+      "precision": 0.4937193953587396,
+      "threshold": 0.23348442062518082,
+      "n_features": 12
+    },
+    "CGM + meal log": {
+      "auroc": 0.9284147729177917,
+      "auprc": 0.7668737224234472,
+      "brier": 0.07891482842450023,
+      "sensitivity": 0.8432373313889902,
+      "precision": 0.5377819111834458,
+      "threshold": 0.25378252096072923,
+      "n_features": 16
+    },
+    "CGM + all wearables": {
+      "auroc": 0.9250500509034562,
+      "auprc": 0.751369102152396,
+      "brier": 0.08073527055307525,
+      "sensitivity": 0.8527160043747721,
+      "precision": 0.5275146594497068,
+      "threshold": 0.23825691020298004,
+      "n_features": 27
+    },
+    "Wearables + EHR fusion": {
+      "auroc": 0.9198805142140857,
+      "auprc": 0.7325650494479011,
+      "brier": 0.08400597971076232,
+      "sensitivity": 0.7980313525337221,
+      "precision": 0.5524987380111055,
+      "threshold": 0.25079789925410445,
+      "n_features": 47
+    },
+    "GlucoTwin (fusion + twin)": {
+      "auroc": 0.9337399521857095,
+      "auprc": 0.7829850901592086,
+      "brier": 0.07421075501872247,
+      "sensitivity": 0.8552679547940212,
+      "precision": 0.565028901734104,
+      "threshold": 0.2108504073265682,
+      "n_features": 57,
+      "n_events": 488,
+      "detection_rate": 0.9508196721311475,
+      "median_lead_min": 90.0,
+      "p25_lead_min": 20.0,
+      "alert_episodes_per_patient_day": 3.8423645320197046,
+      "alert_episode_precision": 0.5717948717948718
+    }
+  },
+  "cross_validation_5fold": {
+    "Trend-arrow rule (baseline)": {
+      "auroc_mean": 0.6650979610729904,
+      "auroc_sd": 0.0,
+      "auprc_mean": null
+    },
+    "CGM only": {
+      "auroc_mean": 0.9155032490305948,
+      "auroc_sd": 0.002042755409616303,
+      "auprc_mean": 0.7751749902767443,
+      "auprc_sd": 0.006494501742413155
+    },
+    "CGM + meal log": {
+      "auroc_mean": 0.927495365870875,
+      "auroc_sd": 0.002021479337114179,
+      "auprc_mean": 0.8087161439853059,
+      "auprc_sd": 0.0075480999464525795
+    },
+    "CGM + all wearables": {
+      "auroc_mean": 0.9236587503081924,
+      "auroc_sd": 0.0018468104356031722,
+      "auprc_mean": 0.8022989644325167,
+      "auprc_sd": 0.004375841045848333
+    },
+    "Wearables + EHR fusion": {
+      "auroc_mean": 0.9278611074385287,
+      "auroc_sd": 0.0037139293384130527,
+      "auprc_mean": 0.8133186003179521,
+      "auprc_sd": 0.012803500072301547
+    },
+    "GlucoTwin (fusion + twin)": {
+      "auroc_mean": 0.9340157892390388,
+      "auroc_sd": 0.0024208664651817523,
+      "auprc_mean": 0.8278808990824592,
+      "auprc_sd": 0.003487542009744174
+    }
+  },
+  "peak_forecast": {
+    "mae_glucotwin_mgdl": 12.43862929906145,
+    "mae_twin_physics_only_mgdl": 15.389369486065785,
+    "mae_persistence_mgdl": 23.967006057481633,
+    "interval_80_coverage": 0.8048717618249774,
+    "conformal_margin_mgdl": 2.0511781739545816
+  },
+  "shap_by_stream": {
+    "Meal log": 0.2211,
+    "Heart rate / HRV": 0.2224,
+    "Sleep": 0.3223,
+    "EHR (clinical record)": 0.333,
+    "CGM history": 0.3818,
+    "Activity (steps)": 0.5015,
+    "Time of day": 0.5734,
+    "Digital twin": 1.8426
+  },
+  "top_features": {
+    "twin_peak_habit_2h": 0.8669,
+    "act_steps_30": 0.3503,
+    "time_sin": 0.3487,
+    "twin_gb": 0.3012,
+    "twin_p_meal_2h": 0.2953,
+    "slp_hours": 0.2343,
+    "time_cos": 0.2247,
+    "twin_cs": 0.1306,
+    "twin_peak_2h": 0.1101,
+    "hr_hrv_60": 0.1076,
+    "act_steps_60": 0.0959,
+    "meal_cob": 0.0757,
+    "meal_mins_since": 0.0734,
+    "ehr_hba1c_pct": 0.0633,
+    "cgm_slope_30": 0.0615
+  }
+}
