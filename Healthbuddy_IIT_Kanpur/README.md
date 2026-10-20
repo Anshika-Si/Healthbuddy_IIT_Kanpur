@@ -6,7 +6,7 @@ GlucoTwin combines each patient's health record with their live wearable data. I
 
 | | |
 |---|---|
-| **Demo video (2–5 min)** | `(https://drive.google.com/file/d/17rQDqoe471dJ1IjayR9HLVPxhtOwbkSb/view?usp=sharing)` |
+| **Demo video (2–5 min)** | `https://drive.google.com/file/d/17rQDqoe471dJ1IjayR9HLVPxhtOwbkSb/view?usp=sharing` |
 | **Presentation** | [`docs/GlucoTwin_Presentation.pptx`](docs/GlucoTwin_Presentation.pptx) · [PDF](docs/GlucoTwin_Presentation.pdf) |
 | **Architecture diagram** | [`docs/Architecture_Diagram.pdf`](docs/Architecture_Diagram.pdf) |
 | **Clinician dashboard** | [`dashboard/GlucoTwin_Dashboard.html`](dashboard/GlucoTwin_Dashboard.html). Download it and open it in any browser; it works offline. |
